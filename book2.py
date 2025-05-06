@@ -8,9 +8,9 @@ import urllib.error
 
 nltk.download('punkt_tab')
 
-# Hardcoded URL of a book (A ​Court of Silver Flames by Sarah J. Maas) PW 3/7/2022
-url = "https://www.goodreads.com/book/show/53138095-a-court-of-silver-flames?from_search=true&from_srp=true&qid=I4qsk8V925&rank=1"
 
+# Hardcoded URL of a book (Mostly What God Does: Reflections on Seeking and Finding His Love Everywhere) PW 3/3/2024
+url = "https://www.publishersweekly.com/9781400341122"
 headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
 }
@@ -21,10 +21,10 @@ try:
     html = response.read()
     soup = BeautifulSoup(html, "html.parser")
 
-    # Print only the <section> tags and their contents
-    divs = soup.find('section', class_='ReviewText ReviewText--hideContent')
+    # Print only the <div> tags and their contents
+    divs = soup.find('div', class_="text-body mdc-typography--body1 font-source-serif-pro")
     for div in divs:
-        print(div.prettify())  # This prints each <section> and its content nicely formatted
+        print(divs.prettify())  # This prints each <div> and its content nicely formatted
 
 except urllib.error.URLError as e:
     print(f"URL Error: {e}")
