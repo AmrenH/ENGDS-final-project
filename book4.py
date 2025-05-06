@@ -21,10 +21,10 @@ try:
     html = response.read()
     soup = BeautifulSoup(html, "html.parser")
 
-    # Print only the <div> tags and their contents
+    # Print only the <section> tags and their contents
     divs = soup.find('section', class_='ReviewText ReviewText--hideContent')
     for div in divs:
-        print(div.prettify())  # This prints each <div> and its content nicely formatted
+        print(div.prettify())  # This prints each <section> and its content nicely formatted
 
 except urllib.error.URLError as e:
     print(f"URL Error: {e}")
@@ -35,8 +35,9 @@ except Exception as e:
     
     
 #tokenize the text
-if div:
-    text = div.get_text()
+if divs:
+    text = divs.get_text()
     # Tokenize the text
     tokens = nltk.word_tokenize(text)
     print(tokens)
+    
