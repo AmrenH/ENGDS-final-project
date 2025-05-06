@@ -9,7 +9,7 @@ import urllib.error
 nltk.download('punkt_tab')
 
 
-# Hardcoded URL of a book (Mostly What God Does: Reflections on Seeking and Finding His Love Everywhere) PW 3/3/2024
+# Hardcoded URL of a book (The Let Them Theory: A Life-Changing Tool That Millions of People Can’t Stop Talking About by Mel Robbins) PW 3/3/2025
 url = "https://www.publishersweekly.com/9781401971366"
 headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
@@ -22,9 +22,9 @@ try:
     soup = BeautifulSoup(html, "html.parser")
 
     # Print only the <div> tags and their contents
-    divs = soup.find('div', class_="text-body mdc-typography--body1 font-source-serif-pro")
-    for div in divs:
-        print(divs.prettify())  # This prints each <div> and its content nicely formatted
+    divs1 = soup.find('div', class_="text-body mdc-typography--body1 font-source-serif-pro")
+    for div in divs1:
+        print(divs1.prettify())  # This prints each <div> and its content nicely formatted
 
 except urllib.error.URLError as e:
     print(f"URL Error: {e}")
@@ -35,8 +35,8 @@ except Exception as e:
     
     
 #tokenize the text
-if divs:
-    text = divs.get_text()
+if divs1:
+    text = divs1.get_text()
     # Tokenize the text
     tokens = nltk.word_tokenize(text)
     print(tokens)

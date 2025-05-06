@@ -22,9 +22,9 @@ try:
     soup = BeautifulSoup(html, "html.parser")
 
     # Print only the <div> tags and their contents
-    divs = soup.find('div', class_="text-body mdc-typography--body1 font-source-serif-pro")
-    for div in divs:
-        print(divs.prettify())  # This prints each <div> and its content nicely formatted
+    divs2 = soup.find('div', class_="text-body mdc-typography--body1 font-source-serif-pro")
+    for div2 in divs2:
+        print(divs2.prettify())  # This prints each <div> and its content nicely formatted
 
 except urllib.error.URLError as e:
     print(f"URL Error: {e}")
@@ -35,8 +35,8 @@ except Exception as e:
     
     
 #tokenize the text
-if divs:
-    text = divs.get_text()
+if divs2:
+    text = divs2.get_text()
     # Tokenize the text
     tokens = nltk.word_tokenize(text)
     print(tokens)
