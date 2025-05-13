@@ -1,7 +1,5 @@
 from __future__ import division
 import nltk
-import re
-import pprint
 from urllib.request import Request, urlopen
 from bs4 import BeautifulSoup
 import urllib.error
