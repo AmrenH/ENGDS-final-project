@@ -1,0 +1,50 @@
+import pandas as pd
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.cluster import KMeans
+from sklearn.decomposition import PCA
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+#create a dictionary of book summaries
+summaries = {
+    "book 1": "outlines how accepting others for who they are and focusing instead on the actions one can take to improve things—what she calls the “let them/let me” method—helps reveal what’s within one’s control and how to manage one’s actions accordingly. Those dealing with difficult family members, for example, should avoid trying to change their opinions (“Let your dad be your dad”) and focus on building the “kind of relationship I want” with them, “based on the kind of person I want to be.” Similarly, those struggling with the tendency to compare themselves to others should recognize that harping on someone else’s advantages drains motivation for changing one's own life. In down-to-earth prose, the author lucidly distinguishes her theory from simply “letting go,” noting that “accepting the reality of your situation doesn’t mean you’re surrendering to it” but rather releasing “control you never had.” Robbins’s fans will want to snap this up.",
+    "book2" : "From there, Guthrie explores prayer as a method of processing “feelings and emotions and concerns in the presence of God”; doubt as “faith being worked out, like a muscle”; and everyday kindness as a “way we transmit the love of God,” even if it’s just by “look[ing] someone in the eye, offer[ing] our coat, or invit[ing] a stranger to sit with us.” Through her candidness about the challenges she’s tackled—including the death of her often “mercurial and terrifying” father when she was 16 and her abbreviated first marriage—Guthrie persuasively renders the evolution of a hard-won religious belief that makes room for imperfection and “does not require us to ignore... the sorrows we experience or the unjustness we see but to believe past it.” This openhearted offering inspires."
+}
+
+
+# Step 1: Convert summaries to TF-IDF vectors
+vectorizer = TfidfVectorizer(stop_words='english')
+X = vectorizer.fit_transform(summaries.values())
+
+# Step 2: Cluster the TF-IDF vectors
+k = 2  # Try different values (2, 3, 4, etc.)
+kmeans = KMeans(n_clusters=k, random_state=42)
+labels = kmeans.fit_predict(X)
+
+# Step 3: Create a DataFrame with cluster labels
+df = pd.DataFrame({
+    'Book': list(summaries.keys()),
+    'Summary': list(summaries.values()),
+    'Cluster': labels
+})
+
+print(df)
+
+# Step 4: Reduce TF-IDF vectors to 2D for plotting
+pca = PCA(n_components=2)
+X_2d = pca.fit_transform(X.toarray())
+
+# Step 5: Visualize clusters in 2D
+plt.figure(figsize=(10, 6))
+sns.scatterplot(x=X_2d[:, 0], y=X_2d[:, 1], hue=labels, palette='Set2', s=100)
+
+# Add book titles to each point
+for i, title in enumerate(summaries.keys()):
+    plt.text(X_2d[i, 0] + 0.01, X_2d[i, 1], title, fontsize=9)
+
+plt.title("TF-IDF Clustering of Book Summaries")
+plt.xlabel("PCA Component 1")
+plt.ylabel("PCA Component 2")
+plt.legend(title="Cluster")
+plt.tight_layout()
+plt.show()

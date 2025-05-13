@@ -9,7 +9,7 @@ import pandas as pd
 nltk.download('punkt_tab')
 
 
-import nltk
+
 from nltk.tokenize import sent_tokenize, word_tokenize
 from nltk.corpus import stopwords
 from collections import Counter
@@ -48,7 +48,7 @@ except Exception as e:
 
 long_text = "outlines how accepting others for who they are and focusing instead on the actions one can take to improve things—what she calls the “let them/let me” method—helps reveal what’s within one’s control and how to manage one’s actions accordingly. Those dealing with difficult family members, for example, should avoid trying to change their opinions (“Let your dad be your dad”) and focus on building the “kind of relationship I want” with them, “based on the kind of person I want to be.” Similarly, those struggling with the tendency to compare themselves to others should recognize that harping on someone else’s advantages drains motivation for changing one's own life. In down-to-earth prose, the author lucidly distinguishes her theory from simply “letting go,” noting that “accepting the reality of your situation doesn’t mean you’re surrendering to it” but rather releasing “control you never had.” Robbins’s fans will want to snap this up."
 
-    
+ #makes the summaries more comapct for easier classifying   
 def extractive_summary(text):
     sentences = sent_tokenize(text)
     words = word_tokenize(text.lower())
@@ -80,5 +80,5 @@ def pos_frequency(tokens):
 
     return pos_counts.most_common()
 
-book1 = pd.DataFrame(pos_frequency(new_tokens))
-print(book1)
+print("Chart of all the Parts of Speech within the summary",pd.DataFrame(pos_frequency(new_tokens)))
+# Print the most common POS tags
