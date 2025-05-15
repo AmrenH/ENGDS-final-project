@@ -20,6 +20,7 @@ nltk.download('stopwords')
 nltk.download('averaged_perceptron_tagger_eng')
 
 # Hardcoded URL of a book (Mostly What God Does: Reflections on Seeking and Finding His Love Everywhere) PW 3/3/2024
+#genre: non-fiction, insirpational 
 url = "https://www.publishersweekly.com/9781400341122"
 headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
@@ -63,7 +64,7 @@ def extractive_summary(text):
 
 #tokenize the text
 if divs2:
-    text = long_text
+    text = divs2.get_text()
     # Tokenize the text
     tokens = nltk.word_tokenize(text)
     print(tokens)
