@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 import urllib.error
 import pandas as pd
 
-
+# Download necessary NLTK resources
 nltk.download('punkt_tab')
 
 
@@ -25,7 +25,7 @@ url = "https://www.publishersweekly.com/9781400341122"
 headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
 }
-
+# Try to make a request to the URL and parse the HTML
 try:
     req = Request(url, headers=headers)
     response = urlopen(req)
@@ -43,18 +43,19 @@ except urllib.error.HTTPError as e:
     print(f"HTTP Error: {e}")
 except Exception as e:
     print(f"An unexpected error occurred: {e}")
-    
+
+# Sample text in case scraping fails or for manual testing
 long_text = "makes her adult debut with a poignant account of the role that religious faith has played in her life. Raised in a sin-obsessed Baptist church, Guthrie grew up burdened with intermittent guilt for “being shallow, for being ambitious... for not being more forward in my faith.” In her 30s, she was stuck in an unhappy marriage when it hit her “like a comet” that God “was, in fact, in the midst of rescuing me.” The realization sparked a renewed faith in Jesus’s love (“Mostly what God does is love us,” she writes; therefore, he “truly intends us to love ourselves”). From there, Guthrie explores prayer as a method of processing “feelings and emotions and concerns in the presence of God”; doubt as “faith being worked out, like a muscle”; and everyday kindness as a “way we transmit the love of God,” even if it’s just by “look[ing] someone in the eye, offer[ing] our coat, or invit[ing] a stranger to sit with us.” Through her candidness about the challenges she’s tackled—including the death of her often “mercurial and terrifying” father when she was 16 and her abbreviated first marriage—Guthrie persuasively renders the evolution of a hard-won religious belief that makes room for imperfection and “does not require us to ignore... the sorrows we experience or the unjustness we see but to believe past it.” This openhearted offering inspires."
 
 
-#tokenize the text
+# Tokenization: Break down the scraped text into individual tokens (words)
 if divs2:
     text = divs2.get_text()
     # Tokenize the text
     tokens = nltk.word_tokenize(text)
     print(tokens)
     
-
+# Define a function to tag and count part-of-speech (POS) tags in a list of tokens
 def pos_frequency(tokens):
     pos_tags = nltk.pos_tag(tokens) # Tag parts of speech
     pos_only = [tag for word, tag in pos_tags] # Extract just the POS tags (e.g., 'NN', 'VB', etc.)
@@ -62,6 +63,7 @@ def pos_frequency(tokens):
 
     return pos_counts.most_common()
 
+# Print a DataFrame displaying POS frequencies
 print("Chart of all the Parts of Speech within the summary",pd.DataFrame(pos_frequency(tokens)))
     
 

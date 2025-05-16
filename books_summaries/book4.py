@@ -45,14 +45,14 @@ except Exception as e:
     
 long_text = "  Enter the world of Charlie's four unlikely friends, discover their story and their most important life lessons. The boy, the mole, the fox and the horse have been shared millions of times online - perhaps you've seen them? They've also been recreated by children in schools and hung on hospital walls. They sometimes even appear on lamp posts and on cafe and bookshop windows. Perhaps you saw the boy and mole on the Comic Relief T-shirt, Love Wins? Here, you will find them together in this book of Charlie's most-loved drawings, adventuring into the Wild and exploring the thoughts and feelings that unite us all."
 
-#tokenize the text
+# Tokenization: Break down the scraped text into individual tokens (words)
 if divs4:
     text = divs4.get_text()
     # Tokenize the text
     tokens = nltk.word_tokenize(text)
     print(tokens)
     
-    
+# Define a function to tag and count part-of-speech (POS) tags in a list of tokens
 def pos_frequency(tokens):
     pos_tags = nltk.pos_tag(tokens) # Tag parts of speech
     pos_only = [tag for word, tag in pos_tags] # Extract just the POS tags (e.g., 'NN', 'VB', etc.)
@@ -60,5 +60,6 @@ def pos_frequency(tokens):
 
     return pos_counts.most_common()
 
+# Print a DataFrame displaying POS frequencies
 print("Chart of all the Parts of Speech within the summary",pd.DataFrame(pos_frequency(tokens)))
 # Print the most common POS tags

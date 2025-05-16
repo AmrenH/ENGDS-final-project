@@ -47,14 +47,14 @@ except Exception as e:
 #summary of the book from the Goodreads website
 long_text = "After Chief Nash Morgan is nearly killed in an attack he can’t fully remember, he struggles to get his life back on track—until his brother’s college ex-girlfriend, Lina Solavita, shows up in their small town, igniting a forbidden attraction. She claims she’s there to visit Nash’s brother, Knox, but really she’s tracking a missing Porsche for her work. Lina’s not forthcoming with Nash, and he explodes when he discovers her deception, despite Lina’s insistence it was a “practically insignificant omission of the truth.” Soon, however, the couple faces a bigger problem: a local crime boss is out for Nash’s head, along with those of his soon-to-be sister-in-law and niece. Meanwhile, Lina and Nash’s chemistry ignites—but an unexpected villain is determined to end their affair. By romance standards, this is a brick, but Score keeps the pages turning with a twisty, danger-laced plot; feisty leads; and blazing passion (which produces “not just any run-of-the-mill, I-could-have-done-better-with-a-vibrator orgasms”). This lively tale will delight series fans."
     
-#tokenize the text
+# Tokenization: Break down the scraped text into individual tokens (words)
 if divs3:
-    text = div3.get_text()
+    text = divs3.get_text()
     # Tokenize the text
     tokens = nltk.word_tokenize(text)
-    print(tokens)    
-
-
+    print(tokens)
+    
+# Define a function to tag and count part-of-speech (POS) tags in a list of tokens
 def pos_frequency(tokens):
     pos_tags = nltk.pos_tag(tokens) # Tag parts of speech
     pos_only = [tag for word, tag in pos_tags] # Extract just the POS tags (e.g., 'NN', 'VB', etc.)
@@ -62,5 +62,6 @@ def pos_frequency(tokens):
 
     return pos_counts.most_common()
 
+# Print a DataFrame displaying POS frequencies
 print("Chart of all the Parts of Speech within the summary",pd.DataFrame(pos_frequency(tokens)))
  

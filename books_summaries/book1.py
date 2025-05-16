@@ -65,14 +65,14 @@ def extractive_summary(text):
     # Return the top-ranked sentence
     return max(sentence_scores, key=sentence_scores.get)
 
-#tokenize the text
+# Tokenization: Break down the scraped text into individual tokens (words)
 if divs1:
-    text = long_text
+    text = divs1.get_text()
     # Tokenize the text
     tokens = nltk.word_tokenize(text)
-    new_tokens = tokens
-    print(new_tokens)
-
+    print(tokens)
+    
+# Define a function to tag and count part-of-speech (POS) tags in a list of tokens
 def pos_frequency(tokens):
     pos_tags = nltk.pos_tag(tokens) # Tag parts of speech
     pos_only = [tag for word, tag in pos_tags] # Extract just the POS tags (e.g., 'NN', 'VB', etc.)
@@ -80,5 +80,6 @@ def pos_frequency(tokens):
 
     return pos_counts.most_common()
 
-print("Chart of all the Parts of Speech within the summary",pd.DataFrame(pos_frequency(new_tokens)))
+# Print a DataFrame displaying POS frequencies
+print("Chart of all the Parts of Speech within the summary",pd.DataFrame(pos_frequency(tokens)))
 # Print the most common POS tags
