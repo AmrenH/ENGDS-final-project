@@ -46,21 +46,6 @@ except Exception as e:
     
 long_text = "makes her adult debut with a poignant account of the role that religious faith has played in her life. Raised in a sin-obsessed Baptist church, Guthrie grew up burdened with intermittent guilt for “being shallow, for being ambitious... for not being more forward in my faith.” In her 30s, she was stuck in an unhappy marriage when it hit her “like a comet” that God “was, in fact, in the midst of rescuing me.” The realization sparked a renewed faith in Jesus’s love (“Mostly what God does is love us,” she writes; therefore, he “truly intends us to love ourselves”). From there, Guthrie explores prayer as a method of processing “feelings and emotions and concerns in the presence of God”; doubt as “faith being worked out, like a muscle”; and everyday kindness as a “way we transmit the love of God,” even if it’s just by “look[ing] someone in the eye, offer[ing] our coat, or invit[ing] a stranger to sit with us.” Through her candidness about the challenges she’s tackled—including the death of her often “mercurial and terrifying” father when she was 16 and her abbreviated first marriage—Guthrie persuasively renders the evolution of a hard-won religious belief that makes room for imperfection and “does not require us to ignore... the sorrows we experience or the unjustness we see but to believe past it.” This openhearted offering inspires."
 
-def extractive_summary(text):
-    sentences = sent_tokenize(text)
-    words = word_tokenize(text.lower())
-    stop_words = set(stopwords.words('english'))
-    words = [w for w in words if w.isalpha() and w not in stop_words]
-
-    word_freq = Counter(words)
-    sentence_scores = {}
-    for sent in sentences:
-        sentence_words = word_tokenize(sent.lower())
-        score = sum(word_freq.get(word, 0) for word in sentence_words if word in word_freq)
-        sentence_scores[sent] = score
-
-    # Return the top-ranked sentence
-    return max(sentence_scores, key=sentence_scores.get)
 
 #tokenize the text
 if divs2:
@@ -69,7 +54,15 @@ if divs2:
     tokens = nltk.word_tokenize(text)
     print(tokens)
     
-print(extractive_summary(text))
+
+def pos_frequency(tokens):
+    pos_tags = nltk.pos_tag(tokens) # Tag parts of speech
+    pos_only = [tag for word, tag in pos_tags] # Extract just the POS tags (e.g., 'NN', 'VB', etc.)
+    pos_counts = Counter(pos_only) # Count frequency of each POS tag
+
+    return pos_counts.most_common()
+
+print("Chart of all the Parts of Speech within the summary",pd.DataFrame(pos_frequency(tokens)))
     
 
     

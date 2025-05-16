@@ -47,23 +47,6 @@ except Exception as e:
 #summary of the book from the Goodreads website
 long_text = "After Chief Nash Morgan is nearly killed in an attack he can’t fully remember, he struggles to get his life back on track—until his brother’s college ex-girlfriend, Lina Solavita, shows up in their small town, igniting a forbidden attraction. She claims she’s there to visit Nash’s brother, Knox, but really she’s tracking a missing Porsche for her work. Lina’s not forthcoming with Nash, and he explodes when he discovers her deception, despite Lina’s insistence it was a “practically insignificant omission of the truth.” Soon, however, the couple faces a bigger problem: a local crime boss is out for Nash’s head, along with those of his soon-to-be sister-in-law and niece. Meanwhile, Lina and Nash’s chemistry ignites—but an unexpected villain is determined to end their affair. By romance standards, this is a brick, but Score keeps the pages turning with a twisty, danger-laced plot; feisty leads; and blazing passion (which produces “not just any run-of-the-mill, I-could-have-done-better-with-a-vibrator orgasms”). This lively tale will delight series fans."
     
-def extractive_summary(text):
-    sentences = sent_tokenize(text)
-    words = word_tokenize(text.lower())
-    stop_words = set(stopwords.words('english'))
-    words = [w for w in words if w.isalpha() and w not in stop_words]
-
-    word_freq = Counter(words)
-    sentence_scores = {}
-    for sent in sentences:
-        sentence_words = word_tokenize(sent.lower())
-        score = sum(word_freq.get(word, 0) for word in sentence_words if word in word_freq)
-        sentence_scores[sent] = score
-
-    # Return the top-ranked sentence
-    return max(sentence_scores, key=sentence_scores.get)
-
-
 #tokenize the text
 if divs3:
     text = div3.get_text()
